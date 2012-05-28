@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Color Scale Generator</title>
+<script src="/lib/jquery-ui-1.8.20.custom/js/jquery-1.7.2.min.js"></script>
+<script src="/lib/jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js"></script>
+<link rel="stylesheet" href="/lib/jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css" />
+<link rel="stylesheet" href="ColorScale.css" />
+<script src="/lib/pythonic/pythonic.js"></script>
+<script src="/lib/pythonic/colorsys.js"></script>
+<script src="ColorScale.js"></script>
+</head>
+<body>
+<h1>Color Scale Generator</h1>
+<div id="colorSwatches"></div>
+<div id="controls">
+	<label for="numSteps">Num Steps</label>
+	<input type="text" id="numSteps" value="20" class="SmallNumeric" />
+
+	<label for="reverse">Reverse</label>
+	<input type="checkbox" checked="checked" id="reverse" />
+	
+	<label for="hsvSat">Min Hue</label>
+	<input type="text" id="minHsvHue" value="0" class="SmallNumeric" />
+
+	<label for="hsvSat">Max Hue</label>
+	<input type="text" id="maxHsvHue" value="0.85" class="SmallNumeric" />
+	
+	<label for="hsvSat">Sat</label>
+	<input type="text" id="hsvSat" value="0.60" class="SmallNumeric" />
+	
+	<label for="hsvVal">Val</label>
+	<input type="text" id="hsvVal" value="0.90" class="SmallNumeric" />
+
+	<label for="swatchWidth">Swatch Width</label>
+	<input type="text" id="swatchWidth" value="30px" class="SmallNumeric" />
+
+	<label for="swatchBorder">Swatch Separator</label>
+	<input type="checkbox" id="swatchBorder" />
+	
+	<br/>
+	<label for="outputFormat">Output Format</label>
+	<select id="outputFormat">
+		<option id="htmlHexLower">Array of HTML lowercase hex color code strings (RGB).</option>
+		<option id="htmlHexUpper">Array of HTML uppercase hex color code strings (RGB).</option>
+		<option id="htmlRgb256">Array of RGB color code strings. CSS syntax. Decimal [0-255].</option>
+		<option id="htmlRgbPct">Array of RGB color code strings. CSS syntax. Expressed as percentages.</option>
+		<option id="htmlHslPct">Array of HSL color code strings. CSS syntax. Expressed as percentages.</option>
+		<option id="pyRgb">Python list of RGB tuples. Floating point [0-1].</option>
+		<option id="pyHsl">Python list of HSL tuples. Floating point [0-1].</option>
+		<option id="pyHsv">Python list of HSV tuples. Floating point [0-1].</option>
+		<option id="cRgb">C array of RGB values. Floating point [0-1].</option>
+		<option id="javaRgb256">Java array of Color objects (RGB). Decimal [0-255].</option>
+	</select>
+	<br/>
+	<textarea rows="12" cols="80" id="output" readonly="readonly"></textarea>
+</div>
+</body>
+</html>
