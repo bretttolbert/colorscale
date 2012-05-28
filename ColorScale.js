@@ -122,12 +122,22 @@ function update() {
 	}
 	$('#colorSwatches').html(html);	
 	$('.ColorSwatch').css('width', $('#swatchWidth').val());
+	$('.ColorSwatch').css('height', $('#swatchHeight').val());
 	if ($('#swatchBorder').attr('checked')) {
 		$('.ColorSwatch').css('margin-right', '1px');
+		$('.ColorSwatch').css('margin-bottom', '1px');
 		//console.log('drawing border');
 	} else {
-		$('.ColorSwatch').css('border-style', 'none');
+		$('.ColorSwatch').css('margin-right', '0px');
+		$('.ColorSwatch').css('margin-bottom', '0px');
 		//console.log('not drawing border');
+	}
+	if ($('#swatchAlign option:selected').attr('id') == 'vertical') {
+		$('.ColorSwatch').css('float', 'none');
+	} else if ($('#swatchAlign option:selected').attr('id') == 'horizontal') {
+		$('.ColorSwatch').css('float', 'left');
+	} else {
+		throw('Error: invalid swatchAlign');
 	}
 	if (outputFormat == 'htmlHexLower') {
 		$('#output').val(repr(htmlHexCodes));
@@ -211,6 +221,15 @@ $(function(){
 	$('#minHsvVal').change(update);
 	$('#maxHsvVal').change(update);
 	$('#swatchWidth').change(update);
+	$('#swatchHeight').change(update);
+	$('#swatchAlign').change(updateAlign);
 	$('#swatchBorder').change(update);
 	$('#outputFormat').change(update);
 });
+
+function updateAlign() {
+	var t = $('#swatchWidth').val();
+	$('#swatchWidth').val($('#swatchHeight').val());
+	$('#swatchHeight').val(t);
+	update();
+}
