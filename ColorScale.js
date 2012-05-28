@@ -1,10 +1,3 @@
-function lpad(str, len) {
-	while (str.length < len) {
-		str = '0' + str;
-	}
-	return str;
-}
-
 /**
  * Returns a string representation of a 2d array of numeric values
  * @param arr the 2d array
@@ -90,9 +83,9 @@ function update() {
 		var b256 = Math.floor(rgb_tuple[2] * 255);
 		rgb256Tuples.push([r256,g256,b256]);
 		htmlHexCodes.push('#' 
-			+ lpad(r256.toString(16), 2)
-			+ lpad(g256.toString(16), 2) 
-			+ lpad(b256.toString(16), 2));
+			+ r256.toString(16).zfill(2)
+			+ g256.toString(16).zfill(2) 
+			+ b256.toString(16).zfill(2));
 		htmlRgb256Codes.push('rgb(' + r256 + ',' + g256 + ',' + b256 + ')');
 		
 		var r100 = Math.round(rgb_tuple[0] * 100);
