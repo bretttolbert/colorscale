@@ -40,16 +40,28 @@ function repr2dArrayOfNumbers(arr, trimFloats, outerBrackets, innerBrackets) {
 
 function update() {
 	var numSteps = parseInt($('#numSteps').val());
-	var hsvSat = parseFloat($('#hsvSat').val());
-	var hsvVal = parseFloat($('#hsvVal').val());
 	var minHsvHue = parseFloat($('#minHsvHue').val());
 	var maxHsvHue = parseFloat($('#maxHsvHue').val());
+	var minHsvSat = parseFloat($('#minHsvSat').val());
+	var maxHsvSat = parseFloat($('#maxHsvSat').val());
+	var minHsvVal = parseFloat($('#minHsvVal').val());
+	var maxHsvVal = parseFloat($('#maxHsvVal').val());
+	$('#hueSlider').slider('values',0,minHsvHue*1000);
+	$('#hueSlider').slider('values',1,maxHsvHue*1000);
+	$('#satSlider').slider('values',0,minHsvSat*1000);
+	$('#satSlider').slider('values',1,maxHsvSat*1000);
+	$('#valSlider').slider('values',0,minHsvVal*1000);
+	$('#valSlider').slider('values',1,maxHsvVal*1000);
 	var reverse = $('#reverse').attr('checked');
 	var outputFormat = $('#outputFormat option:selected').attr('id');
 	//console.log(outputFormat);
 	
 	var hueSpan = maxHsvHue - minHsvHue;
-	var step = hueSpan / numSteps;
+	var hueStep = hueSpan / numSteps;
+	var satSpan = maxHsvSat - minHsvSat;
+	var satStep = satSpan / numSteps;
+	var valSpan = maxHsvVal - minHsvVal;
+	var valStep = valSpan / numSteps;
 	var hsv_tuples = []; //as three floating point values in range [0-1]
 	var hsl_tuples = []; //as three floating point values in range [0-1]
 	var rgb_tuples = []; //as three floating point values in range [0-1]
@@ -71,7 +83,7 @@ function update() {
 			break;
 		}
 		
-		var hsv_tuple = [minHsvHue+x*step, hsvSat, hsvVal];
+		var hsv_tuple = [minHsvHue+x*hueStep, minHsvSat+x*satStep, minHsvVal+x*valStep];
 		var rgb_tuple = colorsys.hsv_to_rgb(hsv_tuple[0], hsv_tuple[1], hsv_tuple[2]);
 		var hsl_tuple = colorsys.rgb_to_hsl(rgb_tuple[0], rgb_tuple[1], rgb_tuple[2]);
 		hsv_tuples.push(hsv_tuple);
@@ -153,13 +165,51 @@ function update() {
 }
 
 $(function(){
+	$('#hueSlider').slider({
+		min: 0,
+		max: 1000,
+		values: [0, 850],
+		slide: function(event, ui) {
+			var min = parseFloat($(this).slider('values', 0)) / 1000;
+			$('#minHsvHue').val(min);
+			var max = parseFloat($(this).slider('values', 1)) / 1000;
+			$('#maxHsvHue').val(max);
+			update();
+		}
+	});
+	$('#satSlider').slider({
+		min: 0,
+		max: 1000,
+		values: [600, 600],
+		slide: function(event, ui) {
+			var min = parseFloat($(this).slider('values', 0)) / 1000;
+			$('#minHsvSat').val(min);
+			var max = parseFloat($(this).slider('values', 1)) / 1000;
+			$('#maxHsvSat').val(max);
+			update();
+		}
+	});
+	$('#valSlider').slider({
+		min: 0,
+		max: 1000,
+		values: [900, 900],
+		slide: function(event, ui) {
+			var min = parseFloat($(this).slider('values', 0)) / 1000;
+			$('#minHsvVal').val(min);
+			var max = parseFloat($(this).slider('values', 1)) / 1000;
+			$('#maxHsvVal').val(max);
+			update();
+		}
+	});
 	update();
 	$('#numSteps').change(update);
 	$('#reverse').change(update);
-	$('#hsvSat').change(update);
-	$('#hsvVal').change(update);
 	$('#minHsvHue').change(update);
 	$('#maxHsvHue').change(update);
+	$('#minHsvSat').change(update);
+	$('#maxHsvSat').change(update);
+	$('#minHsvVal').change(update);
+	$('#maxHsvVal').change(update);
 	$('#swatchWidth').change(update);
 	$('#swatchBorder').change(update);
 	$('#outputFormat').change(update);

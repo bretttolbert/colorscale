@@ -19,3 +19,8 @@ input.SmallNumeric {
 	text-align: right;
 	margin-right: 10px;
 }
+.Slider { 
+	margin: 10px;
+	width: 600px;
+	float: left;
+}
