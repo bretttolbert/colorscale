@@ -245,6 +245,12 @@ $(function(){
 	$('#swatchAlign').change(updateAlign);
 	$('#swatchBorder').change(update);
 	$('#outputFormat').change(update);
+	$('#swatchDimensionsSeparator').click(function(){
+		var temp = $('#swatchWidth').val();
+		$('#swatchWidth').val($('#swatchHeight').val());
+		$('#swatchHeight').val(temp);
+		update();
+	});
 });
 
 function updateAlign() {

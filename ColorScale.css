@@ -24,3 +24,9 @@ input.SmallNumeric {
 	width: 600px;
 	float: left;
 }
+#swatchWidth {
+	margin-right: 0px;
+}
+#swatchDimensionsSeparator {
+	margin: 0px;
+}
