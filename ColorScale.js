@@ -38,6 +38,17 @@ function repr2dArrayOfNumbers(arr, trimFloats, outerBrackets, innerBrackets) {
 	return output;
 }
 
+function join(arr, delim) {
+	var str = '';
+	for (var i=0; i<arr.length; ++i) {
+		str += arr[i];
+		if (i != arr.length-1) {
+			str += delim;
+		}
+	}
+	return str;
+}
+
 function update() {
 	var numSteps = parseInt($('#numSteps').val());
 	var minHsvHue = parseFloat($('#minHsvHue').val());
@@ -66,10 +77,11 @@ function update() {
 	var hsl_tuples = []; //as three floating point values in range [0-1]
 	var rgb_tuples = []; //as three floating point values in range [0-1]
 	var rgb256Tuples = []; //as three integer values in range [0-255]
-	var htmlHexCodes = []; //as strings e.g. '#ffffff'
-	var htmlRgb256Codes = []; //as strings e.g. 'rgb(255,255,255)'
-	var htmlRgbPctCodes = []; //as strings e.g. 'rgb(100%,100%,100%)'
-	var htmlHslPctCodes = []; //as string e.g. 'hsl(100%,100%,100%)'
+	var htmlHexCodesLower = []; //as strings e.g. '#ffffff'
+	var htmlHexCodesUpper = []; //e.g. '#FFFFFF'
+	var htmlRgb256ArrayCodes = []; //as strings e.g. 'rgb(255,255,255)'
+	var htmlRgbPctArrayCodes = []; //as strings e.g. 'rgb(100%,100%,100%)'
+	var htmlHslPctArrayCodes = []; //as string e.g. 'hsl(100%,100%,100%)'
 	var x;
 	if (reverse) {
 		x = numSteps-1;
@@ -94,21 +106,23 @@ function update() {
 		var g256 = Math.floor(rgb_tuple[1] * 255);
 		var b256 = Math.floor(rgb_tuple[2] * 255);
 		rgb256Tuples.push([r256,g256,b256]);
-		htmlHexCodes.push('#' 
+		var hexCodeLower = '#' 
 			+ r256.toString(16).zfill(2)
 			+ g256.toString(16).zfill(2) 
-			+ b256.toString(16).zfill(2));
-		htmlRgb256Codes.push('rgb(' + r256 + ',' + g256 + ',' + b256 + ')');
+			+ b256.toString(16).zfill(2);
+		htmlHexCodesLower.push(hexCodeLower);
+		htmlHexCodesUpper.push(hexCodeLower.toUpperCase());
+		htmlRgb256ArrayCodes.push('rgb(' + r256 + ',' + g256 + ',' + b256 + ')');
 		
 		var r100 = Math.round(rgb_tuple[0] * 100);
 		var g100 = Math.round(rgb_tuple[1] * 100);
 		var b100 = Math.round(rgb_tuple[2] * 100);
-		htmlRgbPctCodes.push('rgb(' + r100 + '%,' + g100 + '%,' + b100 + '%)');
+		htmlRgbPctArrayCodes.push('rgb(' + r100 + '%,' + g100 + '%,' + b100 + '%)');
 		
 		var h100 = Math.round(hsl_tuple[0] * 100);
 		var s100 = Math.round(hsl_tuple[1] * 100);
 		var l100 = Math.round(hsl_tuple[2] * 100);
-		htmlHslPctCodes.push('hsl(' + h100 + '%,' + s100 + '%,' + l100 + '%)');
+		htmlHslPctArrayCodes.push('hsl(' + h100 + '%,' + s100 + '%,' + l100 + '%)');
 			
 		if (reverse) {
 			--x;
@@ -117,8 +131,8 @@ function update() {
 		}
 	}
 	var html = '';
-	for (var i=0; i<htmlHexCodes.length; ++i) {
-		html += '<div class="ColorSwatch" title="'+i+'\n'+htmlHexCodes[i]+'" style="background-color: '+htmlHexCodes[i]+'"></div>';
+	for (var i=0; i<htmlHexCodesLower.length; ++i) {
+		html += '<div class="ColorSwatch" title="'+i+'\n'+htmlHexCodesLower[i]+'" style="background-color: '+htmlHexCodesLower[i]+'"></div>';
 	}
 	$('#colorSwatches').html(html);	
 	$('.ColorSwatch').css('width', $('#swatchWidth').val());
@@ -139,32 +153,38 @@ function update() {
 	} else {
 		throw('Error: invalid swatchAlign');
 	}
-	if (outputFormat == 'htmlHexLower') {
-		$('#output').val(repr(htmlHexCodes));
-	} else if (outputFormat == 'htmlHexUpper') {
-		var upperHtmlHexCodes = [];
-		for (var i=0; i<htmlHexCodes.length; ++i) {
-			upperHtmlHexCodes.push(htmlHexCodes[i].toUpperCase());
-		}
-		$('#output').val(repr(upperHtmlHexCodes));
-	} else if (outputFormat == 'htmlRgb256') {
-		$('#output').val(repr(htmlRgb256Codes));
-	} else if (outputFormat == 'htmlRgbPct') {
-		$('#output').val(repr(htmlRgbPctCodes));
-	} else if (outputFormat == 'htmlHslPct') {
-		$('#output').val(repr(htmlHslPctCodes));
-	} else if (outputFormat == 'pyRgb') {
+	if (outputFormat == 'htmlHexLowerArray') {
+		$('#output').val(repr(htmlHexCodesLower));
+	} else if (outputFormat == 'htmlHexLowerOnePerLine') {
+		$('#output').val(join(htmlHexCodesLower, '\n'));
+	} else if (outputFormat == 'htmlHexUpperArray') {
+		$('#output').val(repr(htmlHexCodesUpper));
+	} else if (outputFormat == 'htmlHexUpperOnePerLine') {
+		$('#output').val(join(htmlHexCodesUpper, '\n'));
+	} else if (outputFormat == 'htmlRgb256Array') {
+		$('#output').val(repr(htmlRgb256ArrayCodes));
+	} else if (outputFormat == 'htmlRgb256OnePerLine') {
+		$('#output').val(join(htmlRgb256ArrayCodes, '\n'));
+	} else if (outputFormat == 'htmlRgbPctArray') {
+		$('#output').val(repr(htmlRgbPctArrayCodes));
+	} else if (outputFormat == 'htmlRgbPctOnePerLine') {
+		$('#output').val(join(htmlRgbPctArrayCodes, '\n'));
+	} else if (outputFormat == 'htmlHslPctArray') {
+		$('#output').val(repr(htmlHslPctArrayCodes));
+	} else if (outputFormat == 'htmlHslPctOnePerLine') {
+		$('#output').val(join(htmlHslPctArrayCodes, '\n'));
+	} else if (outputFormat == 'pyRgbList') {
 		$('#output').val(repr2dArrayOfNumbers(rgb_tuples, true, ['[',']'], ['(',')']));
-	} else if (outputFormat == 'pyHsl') {
+	} else if (outputFormat == 'pyHslList') {
 		$('#output').val(repr2dArrayOfNumbers(hsl_tuples, true, ['[',']'], ['(',')']));
-	} else if (outputFormat == 'pyHsv') {
+	} else if (outputFormat == 'pyHsvList') {
 		$('#output').val(repr2dArrayOfNumbers(hsv_tuples, true, ['[',']'], ['(',')']));
-	} else if (outputFormat == 'cRgb') {
+	} else if (outputFormat == 'cRgbArray') {
 		var output = 'float colors[][3] = ';
 		output += repr2dArrayOfNumbers(rgb_tuples, true, ['{','}'], ['{','}']);
 		output += ';';
 		$('#output').val(output);
-	} else if (outputFormat == "javaRgb256") {
+	} else if (outputFormat == "javaRgb256Array") {
 		var output = 'Color[] colors = ';
 		output += repr2dArrayOfNumbers(rgb256Tuples, false, ['{',' }'], [' new Color(',')']);
 		output += ';';
