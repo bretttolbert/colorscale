@@ -62,21 +62,20 @@
 	<br/>
 	<label for="outputFormat">Output Format</label>
 	<select id="outputFormat">
-		<option id="htmlHexLowerArray">Array of HTML lowercase hex color code strings.</option>
-		<option id="htmlHexLowerOnePerLine">HTML lowercase hex color code strings (one per line)</option>
-		<option id="htmlHexUpperArray">Array of HTML uppercase hex color code strings.</option>
-		<option id="htmlHexUpperOnePerLine">HTML uppercase hex color code strings (one per line)</option>
-		<option id="htmlRgb256Array">Array of RGB color code strings. CSS syntax. Decimal [0-255].</option>
-		<option id="htmlRgb256OnePerLine">RGB color code strings (one per line). CSS syntax. Decimal [0-255].</option>
-		<option id="htmlRgbPctArray">Array of RGB color code strings. CSS syntax. Expressed as percentages.</option>
-		<option id="htmlRgbPctOnePerLine">RGB color code strings (one per line). CSS syntax. Expressed as percentages.</option>
-		<option id="htmlHslPctArray">Array of HSL color code strings. CSS syntax. Expressed as percentages.</option>
-		<option id="htmlHslPctOnePerLine">HSL color code strings (one per line). CSS syntax. Expressed as percentages.</option>
-		<option id="pyRgbList">Python list of RGB tuples. Floating point [0-1].</option>
-		<option id="pyHslList">Python list of HSL tuples. Floating point [0-1].</option>
-		<option id="pyHsvList">Python list of HSV tuples. Floating point [0-1].</option>
-		<option id="cRgbArray">C array of RGB values. Floating point [0-1].</option>
-		<option id="javaRgb256Array">Java array of Color objects (RGB). Decimal [0-255].</option>
+		<option id="htmlHexLowerArray">RGB HTML color code lowercase hex (array)</option>
+		<option id="htmlHexLowerOnePerLine">RGB HTML color code lowercase hex (one per line)</option>
+		<option id="htmlHexUpperArray">RGB HTML color code uppercase hex (array)</option>
+		<option id="htmlHexUpperOnePerLine">RGB HTML color code uppercase hex (one per line)</option>
+		<option id="htmlRgb256Array">RGB values Integer [0-255] CSS syntax (array)</option>
+		<option id="htmlRgb256OnePerLine">RGB values Integer [0-255] CSS syntax (one per line)</option>
+		<option id="javaRgb256Array">RGB values Integer [0-255] (Java array of Color objects)</option>
+		<option id="htmlRgbPctArray">RGB values Percent CSS syntax (array)</option>
+		<option id="htmlRgbPctOnePerLine">RGB values Percent CSS syntax (one per line)</option>
+		<option id="htmlHslPctArray">HSL values Percent CSS syntax (array)</option>
+		<option id="htmlHslPctOnePerLine">HSL values Percent CSS syntax (one per line)</option>
+		<option id="pyHslList">HSL values Floating point [0-1] (python tuple list)</option>
+		<option id="pyHsvList">HSV values Floating point [0-1] (python tuple list)</option>
+		<option id="cRgbArray">RGB values Floating point [0-1] (C array)</option>
 	</select>
 	<br/>
 	<textarea rows="12" cols="80" id="output" readonly="readonly"></textarea>
