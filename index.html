@@ -11,73 +11,76 @@
 <script src="ColorScale.js"></script>
 </head>
 <body>
-<h1>Color Scale Generator</h1>
-<div id="colorSwatches"></div>
-<div id="controls">
-	<label for="numSteps">Num Steps</label>
-	<input type="text" id="numSteps" value="20" class="SmallNumeric" />
+<div id="colorScaleGenerator">
+    <h1>Color Scale Generator</h1>
+    <div id="colorSwatches"></div>
+    <div id="controls">
+        <label for="numSteps">Num Steps</label>
+        <button id="numStepsDecr">-</button>
+        <input type="text" id="numSteps" value="20" class="small-numeric" /><button id="numStepsIncr">+</button>
 
-	<label for="reverse">Reverse</label>
-	<input type="checkbox" checked="checked" id="reverse" />
-	
-	<br/>
-	
-	<label for="minHsvHue">Min Hue</label>
-	<input type="text" id="minHsvHue" value="0" class="SmallNumeric" />
-	<label for="hsvSat">Max Hue</label>
-	<input type="text" id="maxHsvHue" value="0.85" class="SmallNumeric" />
-	<div id="hueSlider" class="Slider"></div>
-	
-	<br/><br/>
-	
-	<label for="minHsvSat">Min Sat</label>
-	<input type="text" id="minHsvSat" value="0.60" class="SmallNumeric" />
-	<label for="maxHsvSat">Max Sat</label>
-	<input type="text" id="maxHsvSat" value="0.60" class="SmallNumeric" />
-	<div id="satSlider" class="Slider"></div>
-	
-	<br/><br/>
-	
-	<label for="minHsvVal">Min Val</label>
-	<input type="text" id="minHsvVal" value="0.90" class="SmallNumeric" />
-	<label for="maxHsvVal">Max Val</label>
-	<input type="text" id="maxHsvVal" value="0.90" class="SmallNumeric" />
-	<div id="valSlider" class="Slider"></div>
-	
-	<br/><br/>
-	
-	<label for="swatchWidth">Swatch Dimensions</label>
-	<input type="text" id="swatchWidth" value="30px" class="SmallNumeric" /><input type="button" id="swatchDimensionsSeparator" value="x" /><input type="text" id="swatchHeight" value="128px" class="SmallNumeric" />
+        <label for="reverse">Reverse</label>
+        <input type="checkbox" checked="checked" id="reverse" />
 
-	<label for="swatchBorder">Swatch Separator</label>
-	<input type="checkbox" id="swatchBorder" />
+        <br/>
+        
+        <label for="minHsvHue">Min Hue</label>
+        <input type="text" id="minHsvHue" value="0" class="small-numeric" />
+        <label for="hsvSat">Max Hue</label>
+        <input type="text" id="maxHsvHue" value="0.85" class="small-numeric" />
+        <div id="hueSlider" class="slider"></div>
+        
+        <br/><br/>
+        
+        <label for="minHsvSat">Min Sat</label>
+        <input type="text" id="minHsvSat" value="0.60" class="small-numeric" />
+        <label for="maxHsvSat">Max Sat</label>
+        <input type="text" id="maxHsvSat" value="0.60" class="small-numeric" />
+        <div id="satSlider" class="slider"></div>
+        
+        <br/><br/>
+        
+        <label for="minHsvVal">Min Val</label>
+        <input type="text" id="minHsvVal" value="0.90" class="small-numeric" />
+        <label for="maxHsvVal">Max Val</label>
+        <input type="text" id="maxHsvVal" value="0.90" class="small-numeric" />
+        <div id="valSlider" class="slider"></div>
+        
+        <br/><br/>
+        
+        <label for="swatchWidth">Swatch Dimensions</label>
+        <input type="text" id="swatchWidth" value="30px" class="small-numeric" /><input type="button" id="swatchDimensionsSeparator" value="x" /><input type="text" id="swatchHeight" value="128px" class="small-numeric" />
 
-	<label for="swatchAlign">Swatch Align</label>
-	<select id="swatchAlign">
-		<option id="horizontal">Horizontal</option>
-		<option id="vertical">Vertical</option>
-	</select>
-	
-	<br/>
-	<label for="outputFormat">Output Format</label>
-	<select id="outputFormat">
-		<option id="htmlHexLowerArray">RGB HTML color code lowercase hex (array)</option>
-		<option id="htmlHexLowerOnePerLine">RGB HTML color code lowercase hex (one per line)</option>
-		<option id="htmlHexUpperArray">RGB HTML color code uppercase hex (array)</option>
-		<option id="htmlHexUpperOnePerLine">RGB HTML color code uppercase hex (one per line)</option>
-		<option id="htmlRgb256Array">RGB values Integer [0-255] CSS syntax (array)</option>
-		<option id="htmlRgb256OnePerLine">RGB values Integer [0-255] CSS syntax (one per line)</option>
-		<option id="javaRgb256Array">RGB values Integer [0-255] (Java array of Color objects)</option>
-		<option id="htmlRgbPctArray">RGB values Percent CSS syntax (array)</option>
-		<option id="htmlRgbPctOnePerLine">RGB values Percent CSS syntax (one per line)</option>
-		<option id="htmlHslPctArray">HSL values Percent CSS syntax (array)</option>
-		<option id="htmlHslPctOnePerLine">HSL values Percent CSS syntax (one per line)</option>
-		<option id="pyHslList">HSL values Floating point [0-1] (python tuple list)</option>
-		<option id="pyHsvList">HSV values Floating point [0-1] (python tuple list)</option>
-		<option id="cRgbArray">RGB values Floating point [0-1] (C array)</option>
-	</select>
-	<br/>
-	<textarea rows="12" cols="80" id="output" readonly="readonly"></textarea>
+        <label for="swatchBorder">Swatch Separator</label>
+        <input type="checkbox" id="swatchBorder" />
+
+        <label for="swatchAlign">Swatch Align</label>
+        <select id="swatchAlign">
+            <option id="horizontal">Horizontal</option>
+            <option id="vertical">Vertical</option>
+        </select>
+        
+        <br/>
+        <label for="outputFormat">Output Format</label>
+        <select id="outputFormat">
+            <option id="htmlHexLowerArray">RGB HTML color code lowercase hex (array)</option>
+            <option id="htmlHexLowerOnePerLine">RGB HTML color code lowercase hex (one per line)</option>
+            <option id="htmlHexUpperArray">RGB HTML color code uppercase hex (array)</option>
+            <option id="htmlHexUpperOnePerLine">RGB HTML color code uppercase hex (one per line)</option>
+            <option id="htmlRgb256Array">RGB values Integer [0-255] CSS syntax (array)</option>
+            <option id="htmlRgb256OnePerLine">RGB values Integer [0-255] CSS syntax (one per line)</option>
+            <option id="javaRgb256Array">RGB values Integer [0-255] (Java array of Color objects)</option>
+            <option id="htmlRgbPctArray">RGB values Percent CSS syntax (array)</option>
+            <option id="htmlRgbPctOnePerLine">RGB values Percent CSS syntax (one per line)</option>
+            <option id="htmlHslPctArray">HSL values Percent CSS syntax (array)</option>
+            <option id="htmlHslPctOnePerLine">HSL values Percent CSS syntax (one per line)</option>
+            <option id="pyHslList">HSL values Floating point [0-1] (python tuple list)</option>
+            <option id="pyHsvList">HSV values Floating point [0-1] (python tuple list)</option>
+            <option id="cRgbArray">RGB values Floating point [0-1] (C array)</option>
+        </select>
+        <br/>
+        <textarea rows="12" cols="80" id="output" readonly="readonly"></textarea>
+    </div>
 </div>
 </body>
 </html>
